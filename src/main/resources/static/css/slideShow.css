@@ -1,0 +1,29 @@
+/* 슬라이드 쇼 전체를 감싸는 영역 */
+#slideShowBox {
+    width: 100%;
+    height: 400px; /* 배너 높이 지정 */
+    overflow: hidden; /* 영역을 벗어나는 이미지는 숨김 */
+    position: relative;
+}
+
+/* 실제 이미지들이 담길 컨테이너 */
+#slideShow {
+    width: 300%; /* 이미지 3개를 가로로 나열하기 위해 너비를 3배로 설정 */
+    height: 400px;
+    position: relative;
+    transition: left 0.5s ease-in-out; /* 왼쪽으로 이동하는 애니메이션 효과 */
+}
+
+/* 각 배너(a 태그) 스타일 */
+#slideShow a {
+    float: left;
+    width: 33.333%; /* 3개의 이미지가 각각 1/3씩 차지 */
+    height: 400px;
+}
+
+/* 배너 이미지 스타일 */
+#slideShow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 영역에 꽉 차도록 설정 */
+}

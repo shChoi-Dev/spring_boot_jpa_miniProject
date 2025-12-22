@@ -1,0 +1,38 @@
+/* 상품 상세 페이지 스타일 */
+.detail-container {
+    display: flex;
+    max-width: 1000px;
+    margin: 50px auto;
+    gap: 30px;
+}
+
+.detail-img {
+    width: 50%;
+}
+
+.detail-info {
+    width: 50%;
+}
+
+.detail-info h2 {
+    font-size: 28px;
+}
+
+.detail-info .price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #d00;
+    margin: 20px 0;
+}
+
+.buy-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
