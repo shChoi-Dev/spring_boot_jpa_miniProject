@@ -10,7 +10,7 @@ import lombok.Data;
 @Table(name = "PRODUCT")
 public class ProductDTO {
 	@Id
-	private int prdNo;
+	private Long prdNo;
 	private String prdName;
 	private int prdPrice;
 	private String prdImg;

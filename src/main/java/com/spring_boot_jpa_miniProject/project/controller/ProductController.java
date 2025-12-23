@@ -20,7 +20,7 @@ public class ProductController {
 	
 	// 상품 상세 정보 페이지
     @GetMapping("/product/detail/{prdNo}")
-    public String getProductDetail(@PathVariable int prdNo, Model model) {
+    public String getProductDetail(@PathVariable Long prdNo, Model model) {
         // 1. prdNo에 해당하는 상품 정보를 서비스로부터 받아옴
         ProductDTO product = prdService.getProductDetail(prdNo);
         // 2. 모델에 상품 정보를 product에 담음

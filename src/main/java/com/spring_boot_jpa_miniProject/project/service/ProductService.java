@@ -22,7 +22,7 @@ public class ProductService {
 		return prdRepo.findAll();
 	}
 	
-	public ProductDTO getProductDetail(int prdNo) {
+	public ProductDTO getProductDetail(Long prdNo) {
 		// findById는 Optional<T>을 반환하므로, 
 		// orElse(null)로 해당 객체가 없으면 null을 반환하도록 처리
 		return prdRepo.findById(prdNo).orElse(null);
@@ -82,7 +82,7 @@ public class ProductService {
 	}
 	
 	// 상품 정보 삭제
-	public void deleteProduct(int prdNo) {
+	public void deleteProduct(Long prdNo) {
 		prdRepo.deleteById(prdNo);
 	}
 	

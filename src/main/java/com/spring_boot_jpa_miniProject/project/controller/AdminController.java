@@ -54,7 +54,7 @@ public class AdminController {
 	
 	// 상품 수정 폼으로 이동
 	@GetMapping("/admin/products/edit/{prdNo}")
-	public String editProductForm(@PathVariable int prdNo, Model model) {
+	public String editProductForm(@PathVariable Long prdNo, Model model) {
 		// 1. 수정할 상품의 기존 정보를 DB에서 불러옴
 		ProductDTO product = prdService.getProductDetail(prdNo);
 		// 2. 모델에 담아서 뷰로 전달
@@ -76,7 +76,7 @@ public class AdminController {
     
     // 상품 삭제 처리
     @GetMapping("admin/products/delete/{prdNo}")
-    public String deleteProduct(@PathVariable int prdNo) {
+    public String deleteProduct(@PathVariable Long prdNo) {
     	prdService.deleteProduct(prdNo);
     	return "redirect:/admin/products"; // 삭제 후 상품 관리 목록으로 리다이렉트
     }
