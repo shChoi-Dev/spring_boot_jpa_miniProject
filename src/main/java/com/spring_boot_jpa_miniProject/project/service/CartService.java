@@ -63,4 +63,14 @@ public class CartService {
 	public void deleteAllCart(String memId) {
 		cartRepo.deleteAllByMemberMemId(memId);
 	}
+
+	// 장바구니 수량 수정
+	public void updateCartQty(Long cartNo, int cartQty) {
+		CartDTO cart = cartRepo.findById(cartNo).orElse(null);
+		if(cart != null) {
+			cart.setCartQty(cartQty);
+			cartRepo.save(cart); // 변경된 수량 저장
+		}
+	}
+	
 }

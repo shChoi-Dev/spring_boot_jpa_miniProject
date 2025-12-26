@@ -70,4 +70,13 @@ public class CartController {
         cartService.deleteCart(cartNo);
         return "redirect:/cart";
     }
+
+    @ResponseBody
+    @PostMapping("/cart/update")
+    public String updateCart(@RequestParam Long cartNo,
+                             @RequestParam int cartQty){
+            cartService.updateCartQty(cartNo, cartQty);
+            return "success";
+        }
+
 }
