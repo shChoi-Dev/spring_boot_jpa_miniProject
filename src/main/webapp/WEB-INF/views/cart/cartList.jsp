@@ -4,76 +4,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>TRVR - 장바구니</title>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
-<style>
-.cart-container {
-	width: 80%;
-	margin: 50px auto;
-	min-height: 500px;
-}
 
-.cart-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: 20px;
-}
+<link rel="stylesheet" href="<c:url value='/css/cart.css'/>">
 
-.cart-table th, .cart-table td {
-	border-bottom: 1px solid #ddd;
-	padding: 15px;
-	text-align: center;
-}
-
-.cart-table th {
-	background-color: #f8f9fa;
-	border-top: 2px solid #333;
-}
-
-.cart-img {
-	width: 80px;
-	height: 80px;
-	object-fit: cover;
-	border-radius: 5px;
-}
-
-.total-area {
-	text-align: right;
-	font-size: 1.5em;
-	font-weight: bold;
-	margin: 30px 0;
-	padding: 20px;
-	background: #f9f9f9;
-	border-radius: 10px;
-}
-
-.btn-delete {
-	background-color: #e74c3c;
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	cursor: pointer;
-	border-radius: 4px;
-}
-
-.btn-order {
-	background-color: #3498db;
-	color: white;
-	border: none;
-	padding: 15px 40px;
-	font-size: 1.2em;
-	cursor: pointer;
-	border-radius: 5px;
-	transition: 0.3s;
-}
-
-.btn-order:hover {
-	background-color: #2980b9;
-}
-</style>
 </head>
+
 <body>
 	<%@ include file="/WEB-INF/views/include/top.jsp"%>
 
@@ -97,27 +37,43 @@
 					<table class="cart-table">
 						<thead>
 							<tr>
-								<th>이미지</th>
-								<th>상품명</th>
-								<th>단가</th>
-								<th>수량</th>
-								<th>합계</th>
-								<th>관리</th>
+								<th style="width: 5%;"><input type="checkbox" id="checkAll"
+									checked></th>
+								<th style="width: 10%;">이미지</th>
+								<th style="width: 40%;">상품명</th>
+								<th style="width: 15%;">단가</th>
+								<th style="width: 10%;">수량</th>
+								<th style="width: 15%;">합계</th>
+								<th style="width: 5%;">관리</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="cart" items="${cartList}">
 								<tr>
+									<td><input type="checkbox" name="cartCheck"
+											   class="cart-check" value="${cart.cartNo}"
+											   data-price="${cart.product.prdPrice}"
+											   data-qty="${cart.cartQty}" checked></td>
 									<td><img
 										src="<c:url value='/prd_images/${cart.product.prdImg}'/>"
 										class="cart-img"></td>
-									<td style="text-align: left; font-weight: bold;">${cart.product.prdName}</td>
+									<td style="text-align: left; font-weight: bold;">
+										${cart.product.prdName}</td>
 									<td><fmt:formatNumber value="${cart.product.prdPrice}"
 											pattern="#,###" />원</td>
-									<td>${cart.cartQty}</td>
-									<td><fmt:formatNumber
-											value="${cart.product.prdPrice * cart.cartQty}"
-											pattern="#,###" />원</td>
+									<td>
+										<div class="qty-box">
+											<button type="button" class="qty-btn" onclick="changeQty(${cart.cartNo}, -1)">-</button>
+        
+        									<input type="number" id="qty_${cart.cartNo}" value="${cart.cartQty}" readonly class="qty-input">
+        
+        									<button type="button" class="qty-btn" onclick="changeQty(${cart.cartNo}, 1)">+</button>
+										</div>
+									</td>
+									<td><span id="sum_${cart.cartNo}"> <fmt:formatNumber
+												value="${cart.product.prdPrice * cart.cartQty}"
+												pattern="#,###" />
+									</span>원</td>
 									<td>
 										<button type="button" class="btn-delete"
 											onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='/cart/delete?cartNo=${cart.cartNo}'">
@@ -129,18 +85,24 @@
 					</table>
 
 					<div class="total-area">
-						총 결제 금액: <span style="color: #e74c3c;"><fmt:formatNumber
-								value="${totalPrice}" pattern="#,###" /></span>원
+						총 결제 예정 금액: <span id="totalPrice" style="color: #e74c3c;">
+							<fmt:formatNumber value="${totalPrice}" pattern="#,###" />
+						</span>원
 					</div>
 
 					<div style="text-align: center;">
-						<button class="btn-order" onclick="alert('주문 기능은 다음 단계에서 구현됩니다!')">주문하기</button>
+						<button class="btn-order" onclick="orderSelected()">선택 상품
+							주문하기</button>
 					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
 	</main>
 
+	<script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>
+	<script src="<c:url value='/js/cartList.js'/>"></script>
+
 	<%@ include file="/WEB-INF/views/include/bottom.jsp"%>
 </body>
+
 </html>

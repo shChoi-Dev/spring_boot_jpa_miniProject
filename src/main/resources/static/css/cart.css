@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+/* 전체 레이아웃 */
+.cart-container {
+	width: 80%;
+	margin: 50px auto;
+	min-height: 500px;
+}
+
+/* 장바구니 테이블 */
+.cart-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+    table-layout: fixed; /* 칸 너비 고정 */
+}
+
+.cart-table th, .cart-table td {
+	border-bottom: 1px solid #ddd;
+	padding: 15px;
+	text-align: center;
+}
+
+.cart-table th {
+	background-color: #f8f9fa;
+	border-top: 2px solid #333;
+}
+
+.cart-img {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+/* 총 결제 금액 영역 */
+.total-area {
+	text-align: right;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin: 30px 0;
+	padding: 20px;
+	background: #f9f9f9;
+	border-radius: 10px;
+}
+
+/* 버튼 스타일 */
+.btn-delete {
+	background-color: #e74c3c;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.btn-order {
+	background-color: #3498db;
+	color: white;
+	border: none;
+	padding: 15px 40px;
+	font-size: 1.2em;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: 0.3s;
+}
+
+.btn-order:hover {
+	background-color: #2980b9;
+}
+
+/* 수량 조절 박스 디자인 */
+.qty-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #333;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background-color: #ddd;
+}
+
+.qty-input {
+    width: 40px;
+    height: 30px;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    outline: none;
+    background-color: #fff;
+}
+
+/* 크롬 등에서 숫자 입력창 화살표 제거 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
