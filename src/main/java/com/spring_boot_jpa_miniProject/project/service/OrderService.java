@@ -68,4 +68,14 @@ public class OrderService {
             cartRepo.delete(cart);             // 장바구니에서 삭제 (구매 후)
 		}
 	}
+	
+	// 내 주문 내역 조회 (마이페이지용)
+    public List<OrderDTO> getMyOrderList(String memId) {
+        return orderRepo.findAllByMemberMemIdOrderByOrdDateDesc(memId);
+    }
+    
+    // 특정 주문 상세 조회
+    public OrderDTO getOrderInfo(Long ordNo) {
+        return orderRepo.findById(ordNo).orElse(null);
+    }
 }
