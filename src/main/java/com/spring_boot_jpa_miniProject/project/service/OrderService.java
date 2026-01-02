@@ -17,65 +17,70 @@ import com.spring_boot_jpa_miniProject.project.repository.OrderRepository;
 
 @Service
 public class OrderService {
-	
+
 	@Autowired
 	private OrderRepository orderRepo;
-	
+
 	@Autowired
 	private OrderDetailRepository orderDetailRepo;
-	
+
 	@Autowired
 	private CartRepository cartRepo;
-	
+
 	@Autowired
 	private MemberRepository memRepo;
-	
+
 	// 주문서 페이지에 보여줄 장바구니 목록 조회
-	public List<CartDTO> getCartListForOrder(List<Long> cartNos){
+	public List<CartDTO> getCartListForOrder(List<Long> cartNos) {
 		return cartRepo.findAllById(cartNos); // 선택된 장바구니 항목들만 가져옴
 	}
-	
+
 	// 주문 처리 (주문 생성 + 상세 저장 + 장바구니 비우기)
 	@Transactional // 하나라도 실패하면 전체 롤백
 	public void insertOrder(OrderDTO order, String memId, List<Long> cartNos) {
-		
+
 		// 주문자 정보 설정
 		MemberDTO member = memRepo.findById(memId).orElse(null);
 		order.setMember(member);
 		order.setOrdStatus("ORDERED"); // 초기 상태: 주문 완료
-		
+
 		// 총 금액 계산
 		List<CartDTO> cartList = cartRepo.findAllById(cartNos);
 		long totalPrice = 0;
-		for(CartDTO cart : cartList) {
+		for (CartDTO cart : cartList) {
 			totalPrice += cart.getProduct().getPrdPrice() * cart.getCartQty();
 		}
 		order.setOrdTotalPrice(totalPrice);
-		
+
 		// 주문 정보 저장
 		OrderDTO savedOrder = orderRepo.save(order);
-		
+
 		// 주문 상세 저장 & 장바구니 삭제
-		for(CartDTO cart : cartList) {
+		for (CartDTO cart : cartList) {
 			OrderDetailDTO detail = new OrderDetailDTO();
-            detail.setOrder(savedOrder);       // 생성된 주문 번호 연결
-            detail.setProduct(cart.getProduct());
-            detail.setOrdQty(cart.getCartQty());
-            detail.setOrdPrice(cart.getProduct().getPrdPrice()); // 구매 당시 가격
-            
-            orderDetailRepo.save(detail);      // 상세 정보 저장
-            
-            cartRepo.delete(cart);             // 장바구니에서 삭제 (구매 후)
+			detail.setOrder(savedOrder); // 생성된 주문 번호 연결
+			detail.setProduct(cart.getProduct());
+			detail.setOrdQty(cart.getCartQty());
+			detail.setOrdPrice(cart.getProduct().getPrdPrice()); // 구매 당시 가격
+
+			orderDetailRepo.save(detail); // 상세 정보 저장
+
+			cartRepo.delete(cart); // 장바구니에서 삭제 (구매 후)
 		}
 	}
-	
+
 	// 내 주문 내역 조회 (마이페이지용)
-    public List<OrderDTO> getMyOrderList(String memId) {
-        return orderRepo.findAllByMemberMemIdOrderByOrdDateDesc(memId);
-    }
-    
-    // 특정 주문 상세 조회
-    public OrderDTO getOrderInfo(Long ordNo) {
-        return orderRepo.findById(ordNo).orElse(null);
-    }
+	public List<OrderDTO> getMyOrderList(String memId) {
+		return orderRepo.findAllByMemberMemIdOrderByOrdDateDesc(memId);
+	}
+
+	// 특정 주문 상세 조회
+	public OrderDTO getOrderInfo(Long ordNo) {
+		return orderRepo.findById(ordNo).orElse(null);
+	}
+
+	// 주문 상세 내역 조회 (상품 목록)
+	public List<OrderDetailDTO> getOrderDetails(Long ordNo) {
+		return orderDetailRepo.findAllByOrderOrdNo(ordNo);
+	}
 }

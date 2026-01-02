@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.spring_boot_jpa_miniProject.project.dto.CartDTO;
 import com.spring_boot_jpa_miniProject.project.dto.MemberDTO;
 import com.spring_boot_jpa_miniProject.project.dto.OrderDTO;
+import com.spring_boot_jpa_miniProject.project.dto.OrderDetailDTO;
 import com.spring_boot_jpa_miniProject.project.service.MemberService;
 import com.spring_boot_jpa_miniProject.project.service.OrderService;
 
@@ -60,4 +62,20 @@ public class OrderController {
 
 		return "redirect:/"; // 메인으로 이동
 	}
+	
+	// 주문 상세 페이지 이동
+    @GetMapping("/order/detail")
+    public String orderDetail(@RequestParam Long ordNo, Model model) {
+        
+        // 주문 정보 가져오기 (배송지, 합계금액 등)
+        OrderDTO order = orderService.getOrderInfo(ordNo);
+        
+        // 주문 상세 목록 가져오기 (상품 정보)
+        List<OrderDetailDTO> orderDetailList = orderService.getOrderDetails(ordNo);
+        
+        model.addAttribute("order", order);
+        model.addAttribute("orderDetailList", orderDetailList);
+        
+        return "order/orderDetail";
+    }
 }

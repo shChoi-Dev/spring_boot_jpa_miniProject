@@ -163,7 +163,7 @@
 									<td><span class="status-badge">${order.ordStatus}</span></td>
 									<td>
 										<button class="btn-detail"
-											onclick="alert('주문 상세/리뷰 기능 준비 중입니다.\\n주문번호: ${order.ordNo}')">상세보기</button>
+											onclick="location.href='<c:url value='/order/detail?ordNo=${order.ordNo}'/>'">상세보기</button>
 									</td>
 								</tr>
 							</c:forEach>
