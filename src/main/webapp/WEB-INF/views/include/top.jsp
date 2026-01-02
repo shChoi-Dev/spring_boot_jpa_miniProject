@@ -25,7 +25,7 @@
                 	<c:if test="${not empty sessionScope.sid}">
 	                    <li><span style="font-weight: bold;">${sessionScope.sid}님 환영합니다!</a></li>
 	                    <li><a href="/member/logout">로그아웃</a></li>
-	                    <li><a href="/mypage">마이페이지</a></li>
+	                    <li><a href="<c:url value='/member/myPage'/>">마이페이지</a></li>
 	                    <li><a href="/cart">장바구니</a></li>
 	                    
 	                    <%-- 역할(sRole)이 'ADMIN'일 경우에만 관리자 페이지 링크를 보여줌 --%>
