@@ -7,11 +7,17 @@
 }
 
 .detail-img {
-    width: 50%;
+   flex: 1;
+}
+
+.detail-img img {
+    width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
 }
 
 .detail-info {
-    width: 50%;
+    flex: 1;
 }
 
 .detail-info h2 {
@@ -35,4 +41,8 @@
     border: none;
     cursor: pointer;
     font-size: 18px;
+}
+
+.buy-button:hover {
+    background-color: #555;
 }
