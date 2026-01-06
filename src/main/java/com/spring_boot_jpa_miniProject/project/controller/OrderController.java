@@ -54,28 +54,48 @@ public class OrderController {
 
 	// 주문 완료 처리
 	@PostMapping("/order/insert")
-	public String orderInsert(@ModelAttribute OrderDTO order, @RequestParam List<Long> cartNos, HttpSession session) {
+	public String orderInsert(@ModelAttribute OrderDTO order, @RequestParam List<Long> cartNos, HttpSession session,
+			Model model) {
+
 		String memId = (String) session.getAttribute("sid");
 
-		// 서비스 호출 (주문 저장 -> 상세 저장 -> 장바구니 삭제)
-		orderService.insertOrder(order, memId, cartNos);
+		try {
+			// 서비스 호출 (주문 저장 -> 상세 저장 -> 장바구니 삭제)
+			orderService.insertOrder(order, memId, cartNos);
 
-		return "redirect:/"; // 메인으로 이동
+			// 성공 시 알림을 띄우고 싶다면 아래처럼 사용 가능
+			model.addAttribute("msg", "주문이 정상적으로 완료되었습니다.");
+			model.addAttribute("url", "/member/myPage"); // 마이페이지로 이동
+			return "common/alert";
+
+		} catch (RuntimeException e) {
+			// 에러 발생 시 (예: 재고 부족)
+			e.printStackTrace(); // 콘솔에 에러 로그 출력
+
+			// 에러 메시지 담기 ("재고가 부족합니다! ...")
+			model.addAttribute("msg", e.getMessage());
+
+			// 이동할 주소 (장바구니로 이동)
+			model.addAttribute("url", "/cart");
+
+			// 알림 페이지로 이동
+			return "common/alert";
+		}
 	}
-	
+
 	// 주문 상세 페이지 이동
-    @GetMapping("/order/detail")
-    public String orderDetail(@RequestParam Long ordNo, Model model) {
-        
-        // 주문 정보 가져오기 (배송지, 합계금액 등)
-        OrderDTO order = orderService.getOrderInfo(ordNo);
-        
-        // 주문 상세 목록 가져오기 (상품 정보)
-        List<OrderDetailDTO> orderDetailList = orderService.getOrderDetails(ordNo);
-        
-        model.addAttribute("order", order);
-        model.addAttribute("orderDetailList", orderDetailList);
-        
-        return "order/orderDetail";
-    }
+	@GetMapping("/order/detail")
+	public String orderDetail(@RequestParam Long ordNo, Model model) {
+
+		// 주문 정보 가져오기 (배송지, 합계금액 등)
+		OrderDTO order = orderService.getOrderInfo(ordNo);
+
+		// 주문 상세 목록 가져오기 (상품 정보)
+		List<OrderDetailDTO> orderDetailList = orderService.getOrderDetails(ordNo);
+
+		model.addAttribute("order", order);
+		model.addAttribute("orderDetailList", orderDetailList);
+
+		return "order/orderDetail";
+	}
 }
