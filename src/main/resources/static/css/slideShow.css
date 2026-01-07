@@ -8,17 +8,19 @@
 
 /* 실제 이미지들이 담길 컨테이너 */
 #slideShow {
-    width: 300%; /* 이미지 3개를 가로로 나열하기 위해 너비를 3배로 설정 */
     height: 400px;
+    display: flex;         
+    flex-wrap: nowrap;
     position: relative;
     transition: left 0.5s ease-in-out; /* 왼쪽으로 이동하는 애니메이션 효과 */
 }
 
 /* 각 배너(a 태그) 스타일 */
 #slideShow a {
-    float: left;
-    width: 33.333%; /* 3개의 이미지가 각각 1/3씩 차지 */
+	flex-shrink: 0;
+    flex-grow: 1;
     height: 400px;
+    display: block;
 }
 
 /* 배너 이미지 스타일 */
@@ -26,4 +28,22 @@
     width: 100%;
     height: 100%;
     object-fit: cover; /* 이미지가 영역에 꽉 차도록 설정 */
+}
+
+/* 모바일/태블릿 대응 (화면 폭이 768px 이하일 때) */
+@media screen and (max-width: 768px) {
+    #slideShowBox, 
+    #slideShow, 
+    #slideShow a {
+        height: 250px; /* 모바일에서는 높이를 250px로 줄임 */
+    }
+}
+
+/* 더 작은 모바일 (화면 폭이 480px 이하일 때) */
+@media screen and (max-width: 480px) {
+    #slideShowBox, 
+    #slideShow, 
+    #slideShow a {
+        height: 200px; /* 더 작은 화면은 높이 200px */
+    }
 }
