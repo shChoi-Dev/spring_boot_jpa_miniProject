@@ -20,6 +20,7 @@
 
 	<main>
 		<section id="slideShowBox">
+			<%-- 슬라이드 쇼 이미지 --%>
 			<div id="slideShow">
 				<a href="#"><img src="<c:url value='/image/slideImg1.png'/>"></a>
 				<a href="#"><img src="<c:url value='/image/slideImg2.png'/>"></a>
@@ -27,6 +28,13 @@
 				<a href="#"><img src="<c:url value='/image/slideImg4.png'/>"></a>
 				<a href="#"><img src="<c:url value='/image/slideImg5.png'/>"></a>
 			</div>
+
+			<%-- 좌우 화살표 --%>
+			<a class="prev">&#10094;</a> 
+			<a class="next">&#10095;</a>
+
+			<%-- 하단 인디케이터 --%>
+			<div class="indicators"></div>
 		</section>
 
 		<section class="product-list">
