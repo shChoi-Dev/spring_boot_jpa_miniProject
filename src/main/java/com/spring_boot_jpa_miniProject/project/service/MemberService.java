@@ -22,6 +22,16 @@ public class MemberService {
 		String encodedPassword = passEncoder.encode(member.getMemPwd());
 		member.setMemPwd(encodedPassword);
 		
+		// 권한이 없으면 "USER"로 강제 설정
+        if (member.getMemRole() == null) {
+            member.setMemRole("USER");
+        }
+        
+        // 활성화 상태 기본값 "Y" 설정
+        if (member.getMemActive() == null) {
+            member.setMemActive("Y");
+        }
+		
 		// 암호화된 비밀번호화 함께 회원 정보 저장
 		memRepo.save(member);	
 	}
@@ -33,11 +43,11 @@ public class MemberService {
 		
 		// 회원이 존재하고 + 비밀번호가 맞고 + "활동중(Y)"인 경우에만 성공
         if (member != null && passEncoder.matches(memPwd, member.getMemPwd())) {
-			if (passEncoder.matches(memPwd, member.getMemPwd())) {
+        	if ("Y".equals(member.getMemActive())) {
 				return member; // 인증 성공 시 MemberDTO 객체 반환
 			}
 		}
-		return null; // 인증 실패 시 null 반환
+		return null; // 비번이 틀리거나, 탈퇴한 회원이면 null 반환
 	}
 	
 	// 회원 정보 조회 (마이페이지, 주문서 작성 시 사용)

@@ -100,7 +100,13 @@
 		<div class="mypage-container">
 			<h2>👤 마이페이지</h2>
 
-			<div class="section-title">내 정보</div>
+			<div class="section-title">
+				<span>내 정보</span>
+				<button class="btn-detail"
+					onclick="location.href='<c:url value='/member/pwdCheck'/>'">회원정보
+					수정</button>
+			</div>
+
 			<table class="info-table">
 				<tr>
 					<th>이름</th>
