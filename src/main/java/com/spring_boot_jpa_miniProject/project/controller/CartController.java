@@ -30,9 +30,6 @@ public class CartController {
         
         // 로그인 확인
         String memId = (String) session.getAttribute("sid");
-        if (memId == null) {
-            return "fail";
-        }
 
         // 서비스 호출하여 담기
         cartService.insertCart(memId, prdNo, cartQty);
@@ -43,12 +40,8 @@ public class CartController {
     // 장바구니 목록 페이지 이동
     @GetMapping("/cart")
     public String cartList(HttpSession session, Model model) {
+    	
         String memId = (String) session.getAttribute("sid");
-        
-        // 비로그인 시 로그인 페이지로
-        if (memId == null) {
-            return "redirect:/member/loginForm";
-        }
 
         List<CartDTO> cartList = cartService.listCart(memId);
         

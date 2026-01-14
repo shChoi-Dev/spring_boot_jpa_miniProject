@@ -75,11 +75,6 @@ public class MemberController {
 		// 세션에서 로그인된 아이디 가져오기
 		String memId = (String) session.getAttribute("sid");
 
-		// 로그인이 안 되어 있다면 로그인 페이지로 보냄
-		if (memId == null) {
-			return "redirect:/member/loginForm";
-		}
-
 		// 회원 정보 조회 (이름, 연락처 등 표시용)
 		MemberDTO member = memService.getMemberInfo(memId);
 
