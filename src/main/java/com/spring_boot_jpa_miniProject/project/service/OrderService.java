@@ -103,4 +103,18 @@ public class OrderService {
 	public List<OrderDetailDTO> getOrderDetails(Long ordNo) {
 		return orderDetailRepo.findAllByOrderOrdNo(ordNo);
 	}
+
+	// 관리자: 모든 주문 목록 조회
+	public List<OrderDTO> getAllOrders() {
+		return orderRepo.findAllByOrderByOrdDateDesc();
+	}
+
+	// 관리자: 주문 상태 변경 (예: 배송시작, 배송완료)
+	public void updateOrderStatus(Long ordNo, String status) {
+        OrderDTO order = orderRepo.findById(ordNo).orElse(null);
+        if(order != null) {
+            order.setOrdStatus(status);
+            orderRepo.save(order); // 변경된 상태 저장
+        }
+	}
 }
