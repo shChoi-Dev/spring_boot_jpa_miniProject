@@ -42,6 +42,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/member/pwdCheck")    // 비번확인
                 .addPathPatterns("/cart/**")            // 장바구니 관련 전체
                 .addPathPatterns("/order/**")          	// 주문 관련 전체
-                .addPathPatterns("/review/write/**"); 	// 리뷰 작성도 필요하면 추가
+                .addPathPatterns("/review/write/**"); 	// 리뷰 작성 전체
     }
 }

@@ -29,12 +29,6 @@ public class ReviewController {
                             HttpSession session,
                             Model model) {
         
-        // 로그인 체크
-        String memId = (String) session.getAttribute("sid");
-        if(memId == null) {
-            return "redirect:/member/loginForm";
-        }
-        
         // 어떤 상품에 대한 리뷰인지 보여주기 위해 상품 정보 가져오기
         ProductDTO product = productService.getProductDetail(prdNo);
         
@@ -52,6 +46,7 @@ public class ReviewController {
                              @RequestParam int revScore,
                              HttpSession session) {
         
+    	// 로그인한 사용자 아이디 가져오기
         String memId = (String) session.getAttribute("sid");
         
         // 서비스 호출하여 저장
