@@ -39,7 +39,7 @@
 					data-prdno="${product.prdNo}">장바구니 담기</button>
 			</div>
 		</div>
-		
+
 		<hr style="margin: 50px 0; border: 0; border-top: 1px solid #eee;">
 
 		<div class="review-section"
@@ -57,27 +57,40 @@
 				<c:otherwise>
 					<table style="width: 100%; border-collapse: collapse;">
 						<c:forEach var="review" items="${reviewList}">
-							<tr style="border-bottom: 1px solid #eee;">
-								<td
-									style="width: 15%; padding: 15px; color: #f1c40f; font-size: 1.2rem;">
-									<c:forEach begin="1" end="${review.reviewScore}">★</c:forEach>
-									<c:forEach begin="1" end="${5 - review.reviewScore}">☆</c:forEach>
-								</td>
+							<div class="review-item"
+								style="border-bottom: 1px solid #eee; padding: 15px 0;">
+								<p>
+									<strong>${review.member.memName}</strong> <span
+										style="color: #f1c40f;">★ ${review.reviewScore}</span> <span
+										style="color: #999; font-size: 0.9em; margin-left: 10px;">
+										<fmt:formatDate value="${review.reviewDate}"
+											pattern="yyyy-MM-dd" />
+									</span>
+								</p>
 
-								<td style="padding: 15px; text-align: left;">
-									<div style="font-weight: bold; margin-bottom: 5px;">
-										${review.member.memName} <span
-											style="font-size: 0.8rem; color: #999; font-weight: normal;">님</span>
+								<p>${review.reviewContent}</p>
+
+								<c:if test="${not empty review.reviewImg}">
+									<div style="margin-top: 10px;">
+										<img src="<c:url value='/review_images/${review.reviewImg}'/>"
+											width="100" height="100"
+											style="object-fit: cover; border-radius: 5px;">
 									</div>
-									<div style="color: #444;">${review.reviewContent}</div>
-								</td>
+								</c:if>
 
-								<td
-									style="width: 15%; padding: 15px; text-align: right; color: #888; font-size: 0.9rem;">
-									<fmt:formatDate value="${review.reviewDate}"
-										pattern="yyyy-MM-dd" />
-								</td>
-							</tr>
+								<c:if test="${sessionScope.sid == review.member.memId}">
+									<div style="text-align: right;">
+										<button type="button"
+											onclick="location.href='<c:url value='/review/updateForm?revNo=${review.reviewNo}'/>'"
+											style="background: #3498db; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-right: 5px;">
+											수정</button>
+										<button type="button"
+											onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='<c:url value='/review/delete?revNo=${review.reviewNo}&prdNo=${product.prdNo}'/>'"
+											style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+											삭제</button>
+									</div>
+								</c:if>
+							</div>
 						</c:forEach>
 					</table>
 				</c:otherwise>

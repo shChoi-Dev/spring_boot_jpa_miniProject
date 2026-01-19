@@ -38,4 +38,6 @@ public class ReviewDTO {
     
     @CreationTimestamp
     private Date reviewDate;         // 작성일
+    
+    private String reviewImg;
 }
