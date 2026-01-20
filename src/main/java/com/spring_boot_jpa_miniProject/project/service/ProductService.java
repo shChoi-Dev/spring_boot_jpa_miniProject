@@ -90,4 +90,9 @@ public class ProductService {
 	public List<ProductDTO> listProductByCategory(String prdCategory) {
 		return prdRepo.findByPrdCategory(prdCategory);
 	}
+	
+	// 상품 검색 기능
+    public List<ProductDTO> productSearch(String keyword) {
+        return prdRepo.findByPrdNameContaining(keyword);
+    }
 }
