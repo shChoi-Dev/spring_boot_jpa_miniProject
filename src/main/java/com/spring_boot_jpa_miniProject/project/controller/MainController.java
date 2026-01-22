@@ -23,13 +23,18 @@ public class MainController {
 	
 	@GetMapping("/") 	// http://localhost:8080/ 요청을 받으면
     public String index(Model model) { // Model 객체를 파라미터로 받음
-        // 상품 목록 가져오기
-		List<ProductDTO> prdList = prdService.listAllProducts();
-		model.addAttribute("prdList", prdList);
 		
 		// 베스트 리뷰 목록 가져오기
         List<ReviewDTO> reviewList = reviewService.getBestReviews();
         model.addAttribute("reviewList", reviewList);
+        
+        // 신상품 4개 가져오기
+        List<ProductDTO> newProducts = prdService.getNewProducts();
+        model.addAttribute("newProducts", newProducts);
+        
+        // 인기 상품 4개 가져오기
+        List<ProductDTO> bestProducts = prdService.getBestProducts();
+        model.addAttribute("bestProducts", bestProducts);
 		
 		// 뷰(JSP)로 전달
         return "index";

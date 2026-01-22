@@ -30,52 +30,69 @@
 			</div>
 
 			<%-- 좌우 화살표 --%>
-			<a class="prev">&#10094;</a> 
-			<a class="next">&#10095;</a>
+			<a class="prev">&#10094;</a> <a class="next">&#10095;</a>
 
 			<%-- 하단 인디케이터 --%>
 			<div class="indicators"></div>
 		</section>
 
 		<section class="product-list">
-			<h2>인기 상품</h2>
-			<div class="items">
-				<%-- 컨트롤러에서 전달받은 productList를 반복 처리 --%>
-				<c:forEach var="product" items="${prdList}">
-					<a href="<c:url value='/product/detail/${product.prdNo}'/>"
-						class="item-link">
-						<div class="item">
-							<%-- 상품 이미지 경로 설정 --%>
-							<img src="<c:url value='/prd_images/${product.prdImg}'/>"
-								alt="${product.prdName}">
-							<%-- 상품 이름 출력 --%>
-							<h3>${product.prdName}</h3>
-							<%-- 상품 가격 출력 --%>
-							<p>
-								<fmt:formatNumber value="${product.prdPrice}" pattern="#,###" />
-								원
-							</p>
+
+			<section class="product-list" style="margin-top: 50px;">
+				<h2 style="text-align: center; margin-bottom: 20px;">최신 상품</h2>
+				<div class="items">
+					<c:forEach var="product" items="${newProducts}">
+						<a href="<c:url value='/product/detail/${product.prdNo}'/>"
+							class="item-link">
+							<div class="item">
+								<img src="<c:url value='/prd_images/${product.prdImg}'/>"
+									alt="${product.prdName}">
+								<h3>${product.prdName}</h3>
+								<p>
+									<fmt:formatNumber value="${product.prdPrice}" pattern="#,###" />
+									원
+								</p>
+							</div>
+						</a>
+					</c:forEach>
+				</div>
+			</section>
+
+			<section class="product-list"
+				style="margin-top: 50px; margin-bottom: 50px;">
+				<h2 style="text-align: center; margin-bottom: 20px;">인기 상품</h2>
+				<div class="items">
+					<c:forEach var="product" items="${bestProducts}">
+						<a href="<c:url value='/product/detail/${product.prdNo}'/>"
+							class="item-link">
+							<div class="item">
+								<img src="<c:url value='/prd_images/${product.prdImg}'/>"
+									alt="${product.prdName}">
+								<h3>${product.prdName}</h3>
+								<p>
+									<fmt:formatNumber value="${product.prdPrice}" pattern="#,###" />
+									원
+								</p>
+							</div>
+						</a>
+					</c:forEach>
+				</div>
+			</section>
+
+			<section class="reviews">
+				<h2>Best Reviews</h2>
+				<div class="review-items">
+					<c:forEach var="review" items="${reviewList}">
+						<div class="review-item">
+							<p>"${review.reviewContent}"</p>
+
+							<span> <c:forEach begin="1" end="${review.reviewScore}">★</c:forEach>
+								| ${review.member.memName} 고객님
+							</span>
 						</div>
-					</a>
-				</c:forEach>
-			</div>
-		</section>
-
-		<section class="reviews">
-			<h2>Best Reviews</h2>
-			<div class="review-items">
-				<c:forEach var="review" items="${reviewList}">
-					<div class="review-item">
-						<p>"${review.reviewContent}"</p>
-
-						<span> <c:forEach begin="1" end="${review.reviewScore}">★</c:forEach>
-							| ${review.member.memName} 고객님
-						</span>
-					</div>
-				</c:forEach>
-			</div>
-		</section>
-
+					</c:forEach>
+				</div>
+			</section>
 	</main>
 
 	<%-- bottom.jsp (푸터) --%>
