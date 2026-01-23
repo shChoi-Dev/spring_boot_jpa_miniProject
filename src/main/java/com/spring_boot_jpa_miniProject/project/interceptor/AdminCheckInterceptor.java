@@ -21,9 +21,9 @@ public class AdminCheckInterceptor implements HandlerInterceptor {
 
 		// 로그인을 안 했거나(null), 관리자가 아니라면("ADMIN"이 아님) 차단
 		if (role == null || !"ADMIN".equals(role)) {
-			response.setContentType("text/html; charset=UTF-8");
-			response.getWriter().write("<script>alert('관리자만 접근할 수 있습니다.'); location.href='/';</script>");
-
+			// 403 에러 발생 -> CustomErrorController가 잡아서 처리
+	        response.sendError(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
+	        
 			return false; // 컨트롤러로 진입하지 못하게 막음
 		}
 
