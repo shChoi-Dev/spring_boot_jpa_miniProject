@@ -95,9 +95,14 @@ public class ProductService {
 	public List<ProductDTO> getNewProducts() {
 		return prdRepo.findTop4ByOrderByPrdNoDesc();
 	}
-	
+
 	// 인기 상품 4개 조회
-    public List<ProductDTO> getBestProducts() {
-        return prdRepo.findTop4ByOrderByPrdPriceDesc();
-    }
+	public List<ProductDTO> getBestProducts() {
+		return prdRepo.findTop4ByOrderByPrdPriceDesc();
+	}
+
+	// 총 상품 수 조회
+	public long getProductCount() {
+		return prdRepo.count();
+	}
 }

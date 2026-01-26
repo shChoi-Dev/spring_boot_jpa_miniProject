@@ -15,7 +15,8 @@
 			</ul>
 		</nav>
 
-		<div class="search-box" style="margin-left: 20px; display: inline-block;">
+		<div class="search-box"
+			style="margin-left: 20px; display: inline-block;">
 			<form action="<c:url value='/product/productSearch'/>" method="get"
 				style="display: flex;">
 				<input type="text" name="keyword" placeholder="상품 검색"
@@ -43,7 +44,11 @@
 
 					<%-- 역할(sRole)이 'ADMIN'일 경우에만 관리자 페이지 링크를 보여줌 --%>
 					<c:if test="${sessionScope.sRole == 'ADMIN'}">
-						<li><a href="<c:url value='/admin/products'/>">관리자 페이지</a></li>
+						<li><a href="<c:url value='/admin'/>"
+							style="color: #e74c3c; font-weight: bold;">관리자 홈</a></li>
+
+						<li><a href="<c:url value='/admin/products'/>">상품 관리</a></li>
+						<li><a href="<c:url value='/admin/orders'/>">주문 관리</a></li>
 					</c:if>
 				</c:if>
 			</ul>

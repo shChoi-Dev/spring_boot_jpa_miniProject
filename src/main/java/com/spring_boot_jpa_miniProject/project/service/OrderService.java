@@ -117,4 +117,14 @@ public class OrderService {
             orderRepo.save(order); // 변경된 상태 저장
         }
 	}
+	
+	// 총 주문 수 조회
+    public long getOrderCount() {
+        return orderRepo.count();
+    }
+    
+    // 배송 대기(ORDERED) 중인 주문 수 조회
+    public long getPendingOrderCount() {
+        return orderRepo.countByOrdStatus("ORDERED");
+    }
 }

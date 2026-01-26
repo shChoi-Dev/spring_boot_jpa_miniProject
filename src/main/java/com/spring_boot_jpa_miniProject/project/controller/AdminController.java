@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring_boot_jpa_miniProject.project.dto.OrderDTO;
 import com.spring_boot_jpa_miniProject.project.dto.ProductDTO;
+import com.spring_boot_jpa_miniProject.project.service.MemberService;
 import com.spring_boot_jpa_miniProject.project.service.OrderService;
 import com.spring_boot_jpa_miniProject.project.service.ProductService;
 
@@ -25,6 +26,15 @@ public class AdminController {
 
 	@Autowired
 	private OrderService orderService; // OrderService 주입
+
+	@Autowired
+	private MemberService memberService;
+	
+	// /admin 으로 접속하면 /admin/main 으로 토스!
+    @GetMapping("/admin")
+    public String adminIndex() {
+        return "redirect:/admin/main";
+    }
 
 	// 관리자용 상품 목록 페이지
 	@GetMapping("/admin/products")
@@ -100,5 +110,23 @@ public class AdminController {
 	public String updateOrderStatus(@RequestParam Long ordNo, @RequestParam String status) {
 		orderService.updateOrderStatus(ordNo, status);
 		return "redirect:/admin/orders"; // 변경 후 목록으로 복귀
+	}
+
+	// 관리자 대시보드 (메인)
+	@GetMapping("/admin/main")
+	public String adminMain(Model model) {
+		// 주요 지표 가져오기
+		long memberCount = memberService.getMemberCount();
+		long productCount = prdService.getProductCount();
+		long orderCount = orderService.getOrderCount();
+		long pendingCount = orderService.getPendingOrderCount(); // 처리해야 할 주문!
+
+		// 모델에 담기
+		model.addAttribute("memberCount", memberCount);
+		model.addAttribute("productCount", productCount);
+		model.addAttribute("orderCount", orderCount);
+		model.addAttribute("pendingCount", pendingCount);
+
+		return "admin/main";
 	}
 }
