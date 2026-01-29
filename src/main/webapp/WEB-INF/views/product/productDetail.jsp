@@ -55,44 +55,43 @@
 						아직 등록된 리뷰가 없습니다. 첫 번째 리뷰를 남겨보세요!</div>
 				</c:when>
 				<c:otherwise>
-					<table style="width: 100%; border-collapse: collapse;">
+					<div class="review-list">
 						<c:forEach var="review" items="${reviewList}">
-							<div class="review-item"
-								style="border-bottom: 1px solid #eee; padding: 15px 0;">
-								<p>
+
+							<div class="review-item">
+
+								<div class="review-header">
 									<strong>${review.member.memName}</strong> <span
 										style="color: #f1c40f;">★ ${review.reviewScore}</span> <span
 										style="color: #999; font-size: 0.9em; margin-left: 10px;">
 										<fmt:formatDate value="${review.reviewDate}"
 											pattern="yyyy-MM-dd" />
 									</span>
-								</p>
+								</div>
 
-								<p>${review.reviewContent}</p>
-
-								<c:if test="${not empty review.reviewImg}">
-									<div style="margin-top: 10px;">
-										<img src="<c:url value='/review_images/${review.reviewImg}'/>"
-											width="100" height="100"
-											style="object-fit: cover; border-radius: 5px;">
-									</div>
-								</c:if>
-
-								<c:if test="${sessionScope.sid == review.member.memId}">
-									<div style="text-align: right;">
-										<button type="button"
-											onclick="location.href='<c:url value='/review/updateForm?revNo=${review.reviewNo}'/>'"
-											style="background: #3498db; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-right: 5px;">
+								<c:if
+									test="${sessionScope.sid == review.member.memId || sessionScope.sRole == 'ADMIN'}">
+									<div class="review-actions">
+										<button type="button" class="btn-edit"
+											onclick="location.href='<c:url value='/review/updateForm?revNo=${review.reviewNo}'/>'">
 											수정</button>
-										<button type="button"
-											onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='<c:url value='/review/delete?revNo=${review.reviewNo}&prdNo=${product.prdNo}'/>'"
-											style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+										<button type="button" class="btn-delete"
+											onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='<c:url value='/review/delete?revNo=${review.reviewNo}&prdNo=${product.prdNo}'/>'">
 											삭제</button>
 									</div>
 								</c:if>
+
+								<div class="review-content">${review.reviewContent}</div>
+
+								<c:if test="${not empty review.reviewImg}">
+									<div class="review-image">
+										<img src="<c:url value='/review_images/${review.reviewImg}'/>">
+									</div>
+								</c:if>
+
 							</div>
 						</c:forEach>
-					</table>
+					</div>
 				</c:otherwise>
 			</c:choose>
 
