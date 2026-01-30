@@ -127,4 +127,10 @@ public class OrderService {
     public long getPendingOrderCount() {
         return orderRepo.countByOrdStatus("ORDERED");
     }
+
+    // 총 매출액 가져오기
+	public long getTotalSales() {
+		Long total = orderRepo.selectTotalSales();
+        return (total != null) ? total : 0;
+	}
 }
