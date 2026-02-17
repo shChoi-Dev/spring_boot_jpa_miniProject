@@ -1,5 +1,5 @@
 # 자바 17 환경을 기반으로 시작
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
 # 작업 폴더 설정
 WORKDIR /app
@@ -12,16 +12,16 @@ COPY pom.xml .
 # 소스 코드 및 웹 리소스 복사
 COPY src src
 
-# gradlew 실행 권한 부여 (혹시 몰라서 추가) 및 빌드
+# gradlew 실행 권한 부여 및 빌드
 # Maven Wrapper 실행 권한 부여
 RUN chmod +x mvnw
-# 테스트는 건너뛰고 빌드 (배포 속도 향상)
 RUN ./mvnw clean package -DskipTests
 
 # 빌드된 jar 파일을 app.jar로 이름 변경하여 복사
-# target 폴더 안에 있는 0.0.1-SNAPSHOT.jar 같은 파일을 찾음
 RUN cp target/*.jar app.jar
 
-# 실행 명령어 (DB 파일 저장을 위해 data 폴더 생성)
+# DB 파일 저장을 위한 data 폴더 생성
 RUN mkdir -p data
+
+# 실행 명령어
 ENTRYPOINT ["java", "-jar", "app.jar"]
