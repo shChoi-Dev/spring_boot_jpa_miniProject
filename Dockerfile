@@ -1,5 +1,5 @@
 # 자바 17 환경을 기반으로 시작
-FROM eclipse-temurin:17-jdk-jammy
+FROM eclipse-temurin:21-jdk-jammy
 
 # 작업 폴더 설정
 WORKDIR /app
