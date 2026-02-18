@@ -18,10 +18,10 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 # 빌드된 jar 파일을 app.jar로 이름 변경하여 복사
-RUN cp target/*.jar app.jar
+RUN cp target/*.war app.war
 
 # DB 파일 저장을 위한 data 폴더 생성
 RUN mkdir -p data
 
 # 실행 명령어
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.war"]
