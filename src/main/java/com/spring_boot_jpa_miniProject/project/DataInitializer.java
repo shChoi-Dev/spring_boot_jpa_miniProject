@@ -76,7 +76,7 @@ public class DataInitializer implements CommandLineRunner {
 			p1.setPrdPrice(150000);
 			p1.setPrdStock(100);
 			p1.setPrdDesc("튼튼하고 가벼운 여행용 캐리어입니다.");
-			p1.setPrdCategory("bag");
+			p1.setPrdCategory("carrier");
 			p1.setPrdImg("carrier1.jpg");
 			productRepo.save(p1);
 
@@ -85,7 +85,7 @@ public class DataInitializer implements CommandLineRunner {
 			p2.setPrdPrice(85000);
 			p2.setPrdStock(50);
 			p2.setPrdDesc("수납 공간이 많은 실용적인 백팩입니다.");
-			p2.setPrdCategory("bag");
+			p2.setPrdCategory("carrier");
 			p2.setPrdImg("backpack1.jpg");
 			productRepo.save(p2);
 			
@@ -94,7 +94,7 @@ public class DataInitializer implements CommandLineRunner {
 			p3.setPrdPrice(12000);
 			p3.setPrdStock(200);
 			p3.setPrdDesc("전 세계 어디서나 사용 가능한 어댑터");
-			p3.setPrdCategory("etc");
+			p3.setPrdCategory("props");
 			p3.setPrdImg("adapter1.jpg");
 			productRepo.save(p3);
 			
@@ -103,7 +103,7 @@ public class DataInitializer implements CommandLineRunner {
 			p4.setPrdPrice(5000);
 			p4.setPrdStock(200);
 			p4.setPrdDesc("캐리어 무게 측정 필수템");
-			p4.setPrdCategory("etc");
+			p4.setPrdCategory("safety");
 			p4.setPrdImg("scale1.jpg");
 			productRepo.save(p4);
 

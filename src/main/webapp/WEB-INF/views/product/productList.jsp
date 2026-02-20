@@ -13,9 +13,9 @@
         <c:when test="${not empty searchKeyword}">
             ${searchKeyword} 검색 결과
         </c:when>
-        <%-- 검색어가 없으면: TRVR - 카테고리명 (예: 여행가방) --%>
+        <%-- 검색어가 없으면: TRVR - 카테고리명 (예: 캐리어) --%>
         <c:otherwise>
-            ${category}
+            ${categoryName}
         </c:otherwise>
     </c:choose>
 </title>
@@ -33,7 +33,7 @@
                     </c:when>
 					<%-- 검색어가 없을 경우 (기존 카테고리 표시) --%>
 					<c:otherwise>
-                        ${category}
+                        ${categoryName}
                     </c:otherwise>
 				</c:choose>
 			</h2>

@@ -44,10 +44,27 @@ public class ProductController {
 	// 카테고리별 상품 목록 페이지
 	@GetMapping("/product/category/{prdCategory}")
 	public String getProductsByCategory(@PathVariable String prdCategory, Model model) {
-		// 이 메소드가 존재하지 않거나 잘못 작성되었을 가능성이 높습니다.
 		List<ProductDTO> productList = prdService.listProductsByCategory(prdCategory);
+		
+		String categoryName = "";
+		switch (prdCategory) {
+				case "carrier":
+					categoryName = "캐리어";
+					break;
+				case "props":
+					categoryName = "여행소품";
+					break;
+				case "safety":
+					categoryName = "안전용품";
+					break;
+				default:
+					categoryName = "상품 목록";
+		}
+		
 		model.addAttribute("prdList", productList);
-		model.addAttribute("category", prdCategory);
+		model.addAttribute("category", prdCategory);	// 내부 로직용 영어
+		model.addAttribute("categoryName", categoryName); // 화면 출력용 한글
+		
 		return "product/productList";
 	}
 
